@@ -11,7 +11,7 @@ class IngredientController extends AbstractController
     #[Route('/ingredient', name: 'app_ingredient')]
     public function index(): Response
     {
-        return $this->render('ingredient/index.html.twig', [
+        return $this->render('ingredient/ingredient.html.twig', [
             'controller_name' => 'IngredientController',
         ]);
     }
