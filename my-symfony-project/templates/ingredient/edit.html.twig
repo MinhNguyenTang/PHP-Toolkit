@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Edit an ingredient</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.price) }}
+            {{ form_widget(form.price) }}
+            {{ form_errors(form.price) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.submit) }}
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

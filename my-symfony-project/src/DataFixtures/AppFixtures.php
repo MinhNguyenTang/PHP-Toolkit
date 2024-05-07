@@ -20,6 +20,12 @@ class AppFixtures extends Fixture
         $this->faker = Factory::create('fr_FR');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 
@@ -27,7 +33,7 @@ class AppFixtures extends Fixture
         {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->word())
-                ->setPrice(mt_rand(0.00, 100.00));
+                ->setPrice(mt_rand(0, 100));
 
             $manager->persist($ingredient);
         }

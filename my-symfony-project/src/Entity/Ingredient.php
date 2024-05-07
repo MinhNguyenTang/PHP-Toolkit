@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\IngredientRepository;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[UniqueEntity('name')]
 class Ingredient
 {
     #[ORM\Id]
@@ -38,28 +40,55 @@ class Ingredient
         $this->createdAt = new \DateTimeImmutable();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $name
+     * @return static
+     */
     public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
-
+    
+    /**
+     * Undocumented function
+     *
+     * @return float|null
+     */
     public function getPrice(): ?float
     {
         return $this->Price;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param float $Price
+     * @return static
+     */
     public function setPrice(float $Price): static
     {
         $this->Price = $Price;
@@ -67,6 +96,11 @@ class Ingredient
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return \DateTimeImmutable|null
+     */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;

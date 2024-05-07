@@ -61,6 +61,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.3.0"
+    },
     "nelmio/cors-bundle": {
         "version": "2.4",
         "recipe": {
@@ -71,6 +74,18 @@
         },
         "files": [
             "./config/packages/nelmio_cors.yaml"
+        ]
+    },
+    "phpstan/phpstan": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
+        },
+        "files": [
+            "./phpstan.dist.neon"
         ]
     },
     "phpunit/phpunit": {
