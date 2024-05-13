@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block body %}
+
+  <div class="container mt-4">
+    {% if recipes is not null %}
+
+    <h1>My recipes - Symrecipe</h1>
+
+    <div class="count mt-4">
+      <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
+    </div>
+
+    <a href="{{ path('app_recipe_new') }}" class="btn btn-primary">
+      Add a recipe
+    </a>
+
+    {# read and display just one flash message type #}
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-dismissible alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <table class="table table-hover mt-4">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Recipe Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Difficulty</th>
+          <th scope="col">Is Favorite</th>
+          <th scope="col">Creation Date</th>
+          <th scope="col">Edition</th>
+          <th scope="col">Deletion</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recipe in recipes %}
+              <tr>
+                <th scope="row">{{ recipe.id }}</th>
+                <td>{{ recipe.nameRecipe }}</td>
+                <td>{{ (recipe.price is null) ? 'Unknown' : recipe.price }}</td>
+                <td>{{ (recipe.difficulty is null) ? 'Unknown' : recipe.difficulty }}</td>
+                <td>{{ (recipe.isFavorite == 0) ? 'No' : 'Yes' }}</td>
+                <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
+                <td><a href="{{ path('app_recipe_edit', { id : recipe.id }) }}" class="btn btn-info">Edit</a></td>
+                <td><a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" onclick="return confirm('Do you really want to delete this item?')" class="btn btn-danger">Delete</a></td>
+              </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="navigation d-flex justify-content-center">
+      {{ knp_pagination_render(recipes) }}
+    </div>
+    {% else %}
+    <p>There is no recipe.</p>
+    {% endif %}
+  </div>
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{% endblock %}

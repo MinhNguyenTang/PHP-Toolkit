@@ -35,7 +35,7 @@ class IngredientController extends AbstractController
             10 /*limit per page*/
         );
 
-        return $this->render('ingredient/ingredient.html.twig', [
+        return $this->render('pages/ingredient/ingredient.html.twig', [
             'ingredients' => $ingredients
         ]);
     }
@@ -57,6 +57,7 @@ class IngredientController extends AbstractController
         $form = $this->createForm(IngredientType::class, $ingredient);
 
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid())
         {
             $ingredient= $form->getData();
@@ -68,15 +69,23 @@ class IngredientController extends AbstractController
                 'success',
                 'Your ingredient has been successfully added!'
             );
-
+        
             return $this->redirectToRoute('app_ingredient');
         }
 
-        return $this->render('ingredient/new.html.twig', [
+        return $this->render('pages/ingredient/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/ingredient/edition/{id}', name: 'app_ingredient_edit', methods: ['GET', 'POST'])]
     public function edit(
         Ingredient $ingredient, 
@@ -88,7 +97,7 @@ class IngredientController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $ingredient= $form->getData();
+            $ingredient = $form->getData();
 
             $manager->persist($ingredient);
             $manager->flush();
@@ -101,34 +110,33 @@ class IngredientController extends AbstractController
             return $this->redirectToRoute('app_ingredient');
         }
 
-        return $this->render('ingredient/edit.html.twig', [
+        return $this->render('pages/ingredient/edit.html.twig', [
             'form' => $form->createView()
         ]);
 
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param EntityManagerInterface $manager
+     * @param Ingredient $ingredient
+     * @return Response
+     */
     #[Route('/ingredient/deletion/{id}', name: 'app_ingredient_delete', methods: ['GET', 'POST'])]
     public function delete(
         EntityManagerInterface $manager, 
         Ingredient $ingredient
         ) : Response
     {
-        if(!$ingredient) {
-            $this->addFlash(
-                'warning',
-                'Ingredient not found!'
-            );
-            return $this->redirectToRoute('app_ingredient');
-        } else {
-            $manager->remove($ingredient);
-            $manager->flush();
+        $manager->remove($ingredient);
+        $manager->flush();
 
-            $this->addFlash(
-                'success',
-                'Your ingredient has been successfully deleted!'
-            );
+        $this->addFlash(
+            'success',
+            'Your ingredient has been successfully deleted!'
+        );
 
-            return $this->redirectToRoute('app_ingredient');
-        }
+        return $this->redirectToRoute('app_ingredient');
     }
 }
