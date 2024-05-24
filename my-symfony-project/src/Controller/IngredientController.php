@@ -79,7 +79,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Controller that edits a recipe
      *
      * @param Ingredient $ingredient
      * @param Request $request
@@ -117,7 +117,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Controller that deletes an ingredient from list
      *
      * @param EntityManagerInterface $manager
      * @param Ingredient $ingredient

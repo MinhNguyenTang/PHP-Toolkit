@@ -4,6 +4,20 @@
 
 {% block body %}
 
+{% if not app.user %}
+  <div class="container mt-5">
+    <h1 class="text-center">Unauthorized Access</h1>
+
+    <hr class="divider">
+
+    <div class="container mt-5">
+      <p style="text-align: center;">Sorry, your request could not be processed.</p>
+      <p style="text-align: center;"><a href="{{ path('app_home') }}">Return</a></p>
+    </div>
+  </div>
+
+{% else %}
+
   <div class="container mt-4">
     {% if ingredients is not null %}
 
@@ -56,6 +70,8 @@
     <p>There is no ingredient.</p>
     {% endif %}
   </div>
+
+  {% endif %}
 
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }

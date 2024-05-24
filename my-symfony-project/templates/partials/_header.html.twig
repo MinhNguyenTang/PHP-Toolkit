@@ -4,18 +4,13 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      {% if not app.user %}
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="{{ path('app_home') }}">Home
-              <span class="visually-hidden">(current)</span>
+            <a class="nav-link {% if (app.request.pathInfo == path('app_home')) %}active{% endif %}" href="{{ path('app_home') }}" class="nav-link active">Home
+              {# <span class="visually-hidden">(current)</span> #}
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_ingredient') }}">Ingredients</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_recipe') }}">Recipes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
@@ -31,10 +26,58 @@
             </div>
           </li>
         </ul>
-        <form class="d-flex" data-dashlane-rid="4b6e2bb845c10f52" data-form-type="">
-          <input class="form-control me-sm-2" type="search" placeholder="Search" data-dashlane-rid="c3e82a58451b73e7" data-form-type="">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit" data-dashlane-label="true" data-dashlane-rid="ade61e239c903f96" data-form-type="">Search</button>
-        </form>
+        <ul class="navbar-nav ms-auto">
+          <form class="d-flex" data-dashlane-rid="4b6e2bb845c10f52" data-form-type="">
+            <input class="form-control me-sm-2" type="search" placeholder="Search" data-dashlane-rid="c3e82a58451b73e7" data-form-type="">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" data-dashlane-label="true" data-dashlane-rid="ade61e239c903f96" data-form-type="">Search</button>
+          </form>
+          <li class="nav-item">
+            <a class="nav-link {% if (app.request.pathInfo == path('app_login')) %}active{% endif %}" href="{{ path('app_login') }}" class="nav-link active">&nbsp;&nbsp;Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if (app.request.pathInfo == path('app_registration')) %}active{% endif %}" href="{{ path('app_registration') }}" class="nav-link active">Sign up</a>
+          </li>
+        </ul>
       </div>
+      {% else %}
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link {% if (app.request.pathInfo == path('app_home')) %}active{% endif %}" href="{{ path('app_home') }}">Home
+                {# <span class="visually-hidden">(current)</span> #}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if (app.request.pathInfo == path('app_ingredient')) %}active{% endif %}" href="{{ path('app_ingredient') }}">Ingredients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if (app.request.pathInfo == path('app_recipe')) %}active{% endif %}" href="{{ path('app_recipe') }}">Recipes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <div class="form-group">
+              <form class="d-flex" data-dashlane-rid="4b6e2bb845c10f52" data-form-type="">
+                <input class="form-control me-sm-2" type="search" placeholder="Search" data-dashlane-rid="c3e82a58451b73e7" data-form-type="">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit" data-dashlane-label="true" data-dashlane-rid="ade61e239c903f96" data-form-type="">Search</button>
+              </form>
+            </div>
+            <div class="dropdown">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;{{ app.user.fullName }}</a>
+                <div class="dropdown-menu dropdown-menu-lg-end">
+                  <a class="dropdown-item" href="#">My Profile</a>
+                  <a class="dropdown-item" href="#">My favorite recipes</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <hr class="dropdown-divider">
+                  <a class="dropdown-item" href="{{ path('app_logout') }}">Log out</a>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+      {% endif %}
     </div>
   </nav>

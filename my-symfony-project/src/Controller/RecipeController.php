@@ -78,7 +78,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Controller that edits a recipe
      *
      * @param Recipe $recipe
      * @param Request $request
@@ -97,7 +97,9 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            $updated = new \DateTimeImmutable();
             $recipe = $form->getData();
+            $recipe->setUpdatedAt($updated);
 
             $manager->persist($recipe);
             $manager->flush();
@@ -116,7 +118,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Controller that deletes a recipe from list
      *
      * @param EntityManagerInterface $manager
      * @param Recipe $recipe
