@@ -27,7 +27,7 @@ class RecipeController extends AbstractController
         RecipeRepository $repository, 
         PaginatorInterface $paginator, 
         Request $request
-    ) : Response
+    ): Response
     {
         $recipes = $paginator->paginate(
             $repository->findBy(['user' => $this->getUser()]), /* query NOT result */
@@ -40,6 +40,32 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/recipe/public_recipe', name: 'app_public_recipe', methods: ['GET'])]
+    public function indexPublic(
+        RecipeRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response
+    {
+        $recipes = $paginator->paginate(
+            $repository->findPublicRecipe(null),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
+        return $this->render('pages/recipe/public.html.twig', [
+            'recipes' => $recipes
+        ]);
+    }
+
+    //#[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
+    //public function showRecipe(Recipe $recipe): Response
+    //{
+    //    return $this->render('pages/recipe/show.html.twig', [
+    //        'recipe' => $recipe
+    //    ]);
+    //}
+
     /**
      * Controller that creates all recipes
      *
@@ -51,7 +77,7 @@ class RecipeController extends AbstractController
     public function new(
         EntityManagerInterface $manager, 
         Request $request
-    ) : Response
+    ): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
@@ -70,7 +96,7 @@ class RecipeController extends AbstractController
                 'Your recipe has been successfully added!'
             );
 
-            return $this->redirectToRoute('app_recipe');
+            return $this->redirectToRoute('app_recipe_new');
         }
 
         return $this->render('pages/recipe/new.html.twig', [
@@ -91,7 +117,7 @@ class RecipeController extends AbstractController
         Recipe $recipe,
         Request $request,
         EntityManagerInterface $manager
-    ) : Response
+    ): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
 
@@ -131,7 +157,7 @@ class RecipeController extends AbstractController
         EntityManagerInterface $manager,
         Recipe $recipe,
         Request $request
-    ) : Response
+    ): Response
     {
         $manager->remove($recipe);
         $manager->flush();

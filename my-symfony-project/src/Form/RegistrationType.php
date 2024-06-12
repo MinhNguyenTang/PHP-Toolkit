@@ -40,7 +40,7 @@ class RegistrationType extends AbstractType
                     'maxlength' => '50'
                 ],
                 'required' => false,
-                'label' => 'Username',
+                'label' => 'Username (optional)',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -76,7 +76,7 @@ class RegistrationType extends AbstractType
                     'attr' => [
                         'class' => 'form-control'
                     ],
-                    'label' => 'Repeat Password',
+                    'label' => 'Confirm Password',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],

@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
         EntityManagerInterface $manager, 
         UserPasswordHasherInterface $passwordHasher,
         Request $request
-        ) : Response
+        ): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);

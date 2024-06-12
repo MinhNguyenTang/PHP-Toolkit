@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Edit your recipe{% endblock %}
 
 {% block body %}
 
     <div class="container mt-4">
         <h1>Edit a recipe</h1>
 
-        {{ form_start(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
 
+        {{ form_start(form) }}
         <div class="row">
             <div class="form-group col-md-4">
                 {{ form_label(form.nameRecipe) }}
@@ -73,8 +78,8 @@
                 {{ form_row(form.submit) }}
             </div>
         </div>
-
         {{  form_end(form) }}
+        
     </div>
 
 {% endblock %}

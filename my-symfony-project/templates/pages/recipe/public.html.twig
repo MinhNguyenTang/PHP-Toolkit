@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Public recipes{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h1>Shared recipes</h1>
+
+        {% if recipes is null %}
+            <p>There is no published recipe yet.</p>
+        {% else %}            
+        <div class="d-flex justify-content-around flex-wrap">
+            {% for recipe in recipes %}
+            <div class="card border-secondary mb-3 mr-5" style="max-width: 20rem;">
+                <div class="card-header">Recipe {{ recipe.id }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ recipe.nameRecipe }}</h4>
+                        <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+                    </div>
+               </div> 
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="navigation d-flex justify-content-center">
+            {{ knp_pagination_render(recipes) }}
+        </div>
+        
+    </div>
+
+{% endblock %}

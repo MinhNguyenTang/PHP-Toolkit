@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recipes{% endblock %}
+{% block title %} {{ (app.user is null) ? 'Page not found' : 'Recipes'}} {% endblock %}
 
 {% block body %}
 
@@ -20,21 +20,27 @@
 {% else %}
 
   <div class="container mt-4">
-    {% if recipes is not null %}
+    {% if recipes is null %}
+
+      <p>There is no recipe</p>
+
+    {% else %}  
 
     <h1>My recipes - Symrecipe</h1>
 
-    <div class="count mt-4">
-      <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
+    <div class="container mt-4">
+      <div class="d-flex justify-content-between">
+        <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
+        
+        <a href="{{ path('app_recipe_new') }}" class="btn btn-primary">
+          Add a recipe
+        </a>
+      </div>
     </div>
 
-    <a href="{{ path('app_recipe_new') }}" class="btn btn-primary">
-      Add a recipe
-    </a>
-
-    {# read and display just one flash message type #}
     {% for message in app.flashes('success') %}
       <div class="alert alert-dismissible alert-success mt-4">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         {{ message }}
       </div>
     {% endfor %}
@@ -48,8 +54,7 @@
           <th scope="col">Difficulty</th>
           <th scope="col">Is Favorite</th>
           <th scope="col">Creation Date</th>
-          <th scope="col">Edition</th>
-          <th scope="col">Deletion</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -57,12 +62,12 @@
               <tr>
                 <th scope="row">{{ recipe.id }}</th>
                 <td>{{ recipe.nameRecipe }}</td>
-                <td>{{ (recipe.price is null) ? 'Unknown' : recipe.price }}</td>
+                <td>{{ (recipe.price is null) ? 'Unknown' : recipe.price|number_format(2) }}€</td>
                 <td>{{ (recipe.difficulty is null) ? 'Unknown' : recipe.difficulty }}</td>
                 <td>{{ (recipe.isFavorite == 0) ? 'No' : 'Yes' }}</td>
                 <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-                <td><a href="{{ path('app_recipe_edit', { id : recipe.id }) }}" class="btn btn-info">Edit</a></td>
-                <td><a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" onclick="return confirm('Do you really want to delete this item?')" class="btn btn-danger">Delete</a></td>
+                <td><a href="{{ path('app_recipe_edit', { id : recipe.id }) }}" class="btn btn-info">Edit</a>
+                <a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" onclick="return confirm('Do you really want to delete this recipe?')" class="btn btn-danger">Delete</a></td>
               </tr>
         {% endfor %}
       </tbody>
@@ -71,8 +76,7 @@
     <div class="navigation d-flex justify-content-center">
       {{ knp_pagination_render(recipes) }}
     </div>
-    {% else %}
-    <p>There is no recipe.</p>
+    
     {% endif %}
   </div>
 

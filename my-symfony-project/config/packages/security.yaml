@@ -23,6 +23,8 @@ security:
                 default_target_path: app_home
             logout: 
                 path: app_logout
+                csrf_parameter: token
+                csrf_token_generator: security.csrf.token_manager
                 target: app_home
             login_throttling:
                 max_attempts: 3
