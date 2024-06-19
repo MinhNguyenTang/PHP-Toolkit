@@ -152,7 +152,7 @@ class RecipeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/recipe/deletion/{id}', name: 'app_recipe_delete', methods: ['GET'])]
+    #[Route('/recipe/deletion/{id}', name: 'app_recipe_delete', methods: ['GET', 'POST'])]
     public function delete(
         EntityManagerInterface $manager,
         Recipe $recipe,

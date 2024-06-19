@@ -7,10 +7,10 @@
     <div class="container">
         <h1 class="text-center mt-4">Form login</h1>
 
-        {# read and display just one flash message type #}
         {% for message in app.flashes('success') %}
             <center>
                 <div class="alert alert-dismissible alert-success col-md-6 mt-4">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     {{ message }}
                 </div>
             </center>
@@ -19,6 +19,7 @@
         {% if error %}
             <center>
                 <div class="alert alert-danger col-md-6 mt-4">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             </center>

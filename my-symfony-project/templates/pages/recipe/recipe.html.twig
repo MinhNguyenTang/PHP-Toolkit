@@ -66,8 +66,8 @@
                 <td>{{ (recipe.difficulty is null) ? 'Unknown' : recipe.difficulty }}</td>
                 <td>{{ (recipe.isFavorite == 0) ? 'No' : 'Yes' }}</td>
                 <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-                <td><a href="{{ path('app_recipe_edit', { id : recipe.id }) }}" class="btn btn-info">Edit</a>
-                <a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" onclick="return confirm('Do you really want to delete this recipe?')" class="btn btn-danger">Delete</a></td>
+                <td><a href="{{ path('app_recipe_edit', { id: recipe.id }) }}" class="btn btn-info">Edit</a>
+                <a href="{{ path('app_recipe_delete', { id: recipe.id }) }}" onclick="return confirm('Do you really want to delete this recipe?')" class="btn btn-danger">Delete</a></td>
               </tr>
         {% endfor %}
       </tbody>
@@ -81,10 +81,5 @@
   </div>
 
   {% endif %}
-
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 {% endblock %}

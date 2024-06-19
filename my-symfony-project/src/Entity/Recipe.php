@@ -77,6 +77,14 @@ class Recipe
     private ?User $user = null;
 
     /**
+     * @var Collection<int, Mark>
+     */
+    #[ORM\OneToMany(targetEntity: Mark::class, mappedBy: 'recipe', orphanRemoval: true)]
+    private Collection $marks;
+
+    private ?float $average;
+
+    /**
      * Constructor of Recipe Class
      */
     public function __construct()
@@ -84,6 +92,7 @@ class Recipe
         $this->ingredients = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->marks = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -249,6 +258,74 @@ class Recipe
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): static
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): static
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getRecipe() === $this) {
+                $mark->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return float|null
+     */
+    public function getAverage(): ?float
+    {
+        $marks = $this->marks;
+        $total = 0;
+
+        if($marks->toArray() === [])
+        {
+            $this->average = null;
+            return $this->average;
+        }
+
+        foreach($marks as $mark)
+        {
+            $total += $mark->getMark();
+        }
+
+        $this->average = $total / count($marks); 
+        return $this->average;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param float|null $average
+     * @return self
+     */
+    public function setAverage(?float $average): self
+    {
+        $this->average = $average;
 
         return $this;
     }
