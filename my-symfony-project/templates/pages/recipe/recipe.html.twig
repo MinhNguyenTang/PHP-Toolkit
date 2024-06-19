@@ -33,7 +33,7 @@
         <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
         
         <a href="{{ path('app_recipe_new') }}" class="btn btn-primary">
-          Add a recipe
+          <i class="fas fa-plus"></i> Add a recipe
         </a>
       </div>
     </div>
@@ -66,9 +66,27 @@
                 <td>{{ (recipe.difficulty is null) ? 'Unknown' : recipe.difficulty }}</td>
                 <td>{{ (recipe.isFavorite == 0) ? 'No' : 'Yes' }}</td>
                 <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-                <td><a href="{{ path('app_recipe_edit', { id: recipe.id }) }}" class="btn btn-info">Edit</a>
-                <a href="{{ path('app_recipe_delete', { id: recipe.id }) }}" onclick="return confirm('Do you really want to delete this recipe?')" class="btn btn-danger">Delete</a></td>
+                <td><a href="{{ path('app_recipe_edit', { id: recipe.id }) }}" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
+                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}"><i class="fas fa-trash-alt"></i> Delete</a></td>
               </tr>
+
+              <div class="modal fade" id="staticBackdrop{{ recipe.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ recipe.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel{{ recipe.id }}">Delete ingredient</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Do you really want to delete the recipe {{ recipe.id }}?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+                      <a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
         {% endfor %}
       </tbody>
     </table>

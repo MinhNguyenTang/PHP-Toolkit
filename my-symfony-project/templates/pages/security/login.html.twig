@@ -19,8 +19,8 @@
         {% if error %}
             <center>
                 <div class="alert alert-danger col-md-6 mt-4">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     {{ error.messageKey|trans(error.messageData, 'security') }}
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
                 </div>
             </center>
         {% endif %}

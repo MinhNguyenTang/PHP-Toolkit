@@ -24,7 +24,7 @@ class Mark
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\Postive()]
+    #[Assert\Positive()]
     #[Assert\LessThan(6)]
     private ?int $mark = null;
 

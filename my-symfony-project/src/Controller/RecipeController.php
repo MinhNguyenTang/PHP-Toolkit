@@ -40,6 +40,14 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param RecipeRepository $repository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/recipe/public_recipe', name: 'app_public_recipe', methods: ['GET'])]
     public function indexPublic(
         RecipeRepository $repository,
@@ -58,13 +66,19 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    //#[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
-    //public function showRecipe(Recipe $recipe): Response
-    //{
-    //    return $this->render('pages/recipe/show.html.twig', [
-    //        'recipe' => $recipe
-    //    ]);
-    //}
+    /**
+     * Undocumented function
+     *
+     * @param Recipe $recipe
+     * @return Response
+     */
+    #[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
+    public function showRecipe(Recipe $recipe): Response
+    {
+        return $this->render('pages/recipe/show.html.twig', [
+            'recipe' => $recipe
+        ]);
+    }
 
     /**
      * Controller that creates all recipes
@@ -96,7 +110,7 @@ class RecipeController extends AbstractController
                 'Your recipe has been successfully added!'
             );
 
-            return $this->redirectToRoute('app_recipe_new');
+            return $this->redirectToRoute('app_recipe');
         }
 
         return $this->render('pages/recipe/new.html.twig', [
