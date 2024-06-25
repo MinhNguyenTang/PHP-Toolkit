@@ -26,7 +26,14 @@
 
     {% else %}  
 
-    <h1>My recipes - Symrecipe</h1>
+    <h2>My recipes - Symrecipe</h2>
+
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-dismissible alert-success mt-4">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        {{ message }}
+      </div>
+    {% endfor %}
 
     <div class="container mt-4">
       <div class="d-flex justify-content-between">
@@ -37,13 +44,6 @@
         </a>
       </div>
     </div>
-
-    {% for message in app.flashes('success') %}
-      <div class="alert alert-dismissible alert-success mt-4">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        {{ message }}
-      </div>
-    {% endfor %}
 
     <table class="table table-hover mt-4">
       <thead>
@@ -74,14 +74,16 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropLabel{{ recipe.id }}">Delete ingredient</h1>
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel{{ recipe.id }}">
+                        <i class="fa-sharp fa-solid fa-circle-exclamation"></i> Delete recipe
+                      </h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       Do you really want to delete the recipe {{ recipe.id }}?
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                       <a href="{{ path('app_recipe_delete', { id : recipe.id }) }}" class="btn btn-danger">Delete</a>
                     </div>
                   </div>

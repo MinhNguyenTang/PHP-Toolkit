@@ -2,6 +2,10 @@
     display: none;
 }
 
+.fa-sharp{
+    color: red;
+}
+
 body {
     background-color: whitesmoke;
 }

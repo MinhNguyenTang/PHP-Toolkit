@@ -5,7 +5,7 @@
 {% block body %}
 
     <div class="container mt-4">
-        <h1>Edit a recipe</h1>
+        <h1 class="text">Edit a recipe</h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-dismissible alert-success mt-4">
@@ -79,7 +79,6 @@
             </div>
         </div>
         {{  form_end(form) }}
-        
     </div>
 
 {% endblock %}

@@ -4,10 +4,13 @@
 
 {% block body %}
 
-<div class="container">
-    <h1 class="text-center mt-4">Welcome to Symrecipe!</h1>
+<div class="d-flex justify-content-center align-items-center" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+   height: 100vh">
+   <h3 class="text-white mb-0">Welcome to Symrecipe!</h3>
+</div>
 
-    <h3 class="d-flex justify-content-start flex-wrap mt-4">&nbsp;&nbsp;&nbsp;&nbsp;Shared recipes</h3>
+<div class="container">
+    <h3 class="d-flex justify-content-start flex-wrap mt-4">Shared recipes</h3>
 
     {% if recipes is null %}
         <p>There is no published recipe yet.</p>
@@ -15,9 +18,15 @@
     <div class="d-flex justify-content-around flex-wrap mt-4">
         {% for recipe in recipes %}
         <div class="card border-secondary mb-3 mr-5" style="max-width: 20rem;">
-            <div class="card-header"><h5>{{ recipe.nameRecipe }}</h5></div>
+            <div class="card-header">
+                <h5 class="float-start">{{ recipe.nameRecipe }}</h5>
+                <div class="card-subtitle">
+                    <p class="float-end">{{ recipe.user.fullName }}</p>
+                </div>
+            </div>
                 <div class="card-body">
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+                    <a href="{{ path('app_show_recipe', {'id': recipe.id }) }}" class="btn btn-primary">View recipe</a>
                 </div>
            </div> 
         {% endfor %}

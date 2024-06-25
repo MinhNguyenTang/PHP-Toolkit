@@ -67,7 +67,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Controller that shows all public 
      *
      * @param Recipe $recipe
      * @return Response
@@ -87,7 +87,8 @@ class RecipeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/recipe/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    #[Route('/recipe/recipe_new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
     public function new(
         EntityManagerInterface $manager, 
         Request $request

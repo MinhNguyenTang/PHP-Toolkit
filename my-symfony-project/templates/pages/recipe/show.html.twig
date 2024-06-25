@@ -1,23 +1,8 @@
 {% extends "base.html.twig" %}
 
-{% block title %} {{ (app.user is null) ? 'Page not found' : recipe.nameRecipe }} {% endblock %}
+{% block title %} {{ recipe.nameRecipe }} {% endblock %}
 
 {% block body %}
-
-{% if not app.user %}
-
-    <div class="container mt-5">
-        <h1 class="text-center">Unauthorized Access</h1>
-
-        <hr class="divider">
-
-        <div class="container mt-5">
-            <p style="text-align: center;">Sorry, your request could not be processed.</p>
-            <p style="text-align: center;"><a href="{{ path('app_home') }}">Return</a></p>
-        </div>
-    </div>
-
-{% else %}
 
     <div class="container">
         <h1 class="mt-4"> {{ recipe.nameRecipe }} </h1>
@@ -30,6 +15,5 @@
         </div>
     </div>
     
-{% endif %}
 
 {% endblock %}

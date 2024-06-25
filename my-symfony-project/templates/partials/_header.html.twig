@@ -66,11 +66,11 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;{{ app.user.fullName }}</a>
                 <div class="dropdown-menu dropdown-menu-lg-end">
-                  <a class="dropdown-item" href="{{ path('app_user_edit', {id: app.user.id}) }}">My Profile</a>
-                  <a class="dropdown-item" href="#">My favorite recipes</a>
-                  <a class="dropdown-item" href="{{ path('app_user_edit-pwd', {id: app.user.id}) }}">Change password</a>
+                  <a class="dropdown-item" href="{{ path('app_user_edit', {id: app.user.id}) }}"><i class="fa-regular fa-user"></i> My Profile</a>
+                  <a class="dropdown-item" href="#"><i class="fa-regular fa-star"></i> My favorite recipes</a>
+                  <a class="dropdown-item" href="{{ path('app_user_edit-pwd', {id: app.user.id}) }}"><i class="fa-solid fa-lock"></i> Change password</a>
                   <hr class="dropdown-divider">
-                  <a class="dropdown-item" href="{{ path('app_logout', { 'token': csrf_token('logout') }) }}"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+                  <a class="dropdown-item" href="{{ path('app_logout', { 'token': csrf_token('logout') }) }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
                 </div>
               </li>
             </div>
