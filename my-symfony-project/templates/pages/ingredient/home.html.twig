@@ -17,7 +17,7 @@
     {% else %}            
     <div class="d-flex justify-content-around flex-wrap mt-4">
         {% for recipe in recipes %}
-        <div class="card border-secondary mb-3 mr-5" style="max-width: 20rem;">
+        <div class="card border-0 mb-3 mr-5 shadow-lg p-3 mb-5 bg-white rounded-0" style="max-width: 20rem;">
             <div class="card-header">
                 <h5 class="float-start">{{ recipe.nameRecipe }}</h5>
                 <div class="card-subtitle">
@@ -26,6 +26,8 @@
             </div>
                 <div class="card-body">
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+                </div>
+                <div class="card-footer border-0">
                     <a href="{{ path('app_show_recipe', {'id': recipe.id }) }}" class="btn btn-primary">View recipe</a>
                 </div>
            </div> 
