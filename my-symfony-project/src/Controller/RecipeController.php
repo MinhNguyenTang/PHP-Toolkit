@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use Psr\Log\LoggerInterface;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -14,6 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecipeController extends AbstractController
 {
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * Controller that displays all recipes
      *
@@ -75,8 +83,19 @@ class RecipeController extends AbstractController
     #[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
     public function showRecipe(Recipe $recipe): Response
     {
+        $minutes = $recipe->getTime();
+        $hours = intdiv($minutes, 60);
+        $exptTime = $minutes % 60;
+
+        $this->logger->info('Recipe duration converted', [
+            'hours' => $hours,
+            'minutes' => $exptTime,
+        ]);
+
         return $this->render('pages/recipe/show.html.twig', [
-            'recipe' => $recipe
+            'recipe' => $recipe,
+            'hours' => $hours,
+            'minutes' => $exptTime,
         ]);
     }
 

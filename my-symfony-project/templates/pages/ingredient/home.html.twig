@@ -4,13 +4,13 @@
 
 {% block body %}
 
-<div class="d-flex justify-content-center align-items-center" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+<div class="d-flex justify-content-center align-items-center hover-shadow" style="background-image: url('https://images.pexels.com/photos/4551832/pexels-photo-4551832.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
    height: 100vh">
-   <h3 class="text-white mb-0">Welcome to Symrecipe!</h3>
+        <h3 class="text-white mb-5">Welcome to Symrecipe!</h3>
 </div>
 
 <div class="container">
-    <h3 class="d-flex justify-content-start flex-wrap mt-4">Shared recipes</h3>
+    <h3 class="d-flex justify-content-start flex-wrap mt-4 align-items">Shared recipes</h3>
 
     {% if recipes is null %}
         <p>There is no published recipe yet.</p>
@@ -28,7 +28,34 @@
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
                 </div>
                 <div class="card-footer border-0">
-                    <a href="{{ path('app_show_recipe', {'id': recipe.id }) }}" class="btn btn-primary">View recipe</a>
+                    <a href="{{ path('app_show_recipe', {'id': recipe.id }) }}" class="btn btn-primary">
+                        View recipe
+                    </a>
+
+                    <div class="modal fade" id="staticBackdrop{{ recipe.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ recipe.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="staticBackdropLabel{{ recipe.id }}">{{ recipe.nameRecipe }}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><i class="fa-regular fa-clock"></i> Duration: {{ hours ?? 'not set' }} hours and {{ minutes ?? 'not set'}} minutes</p>
+                                <p>For: {{ (recipe.numberPeople is null) ? '--' : recipe.numberPeople }} <i class="fa-solid fa-person"></i></p>
+                                <p>Difficulty: {{ (recipe.difficulty is null) ? '--' : recipe.difficulty }}</p>
+                                <p>Price: {{ (recipe.price is null) ? '-.-' : recipe.price|number_format(2) }} <i class="fa-solid fa-euro-sign"></i></p>
+                                <p>Description: {{ (recipe.description is null) ? '--' : recipe.description }}</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">
+                        See more
+                    </button>
                 </div>
            </div> 
         {% endfor %}

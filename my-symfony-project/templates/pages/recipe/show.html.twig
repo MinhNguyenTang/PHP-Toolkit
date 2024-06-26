@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="mt-4"> {{ recipe.nameRecipe }} </h1>
         <div class="row mt-4">
-            <p>Time: {{ (recipe.time is null) ? 'Unknown' : recipe.time }}</p>
+            <p>Duration: {{ (hours == 0) ? '-.-' : hours }} hours and {{ (minutes == 0) ? '-.-' : minutes }} minutes</p>
             <p>For: {{ (recipe.numberPeople is null) ? 'Unknown' : recipe.numberPeople }}</p>
             <p>Difficulty: {{ (recipe.difficulty is null) ? 'Unknwon' : recipe.difficulty }}</p>
             <p>Price: {{ (recipe.price is null) ? 'Unknown' : recipe.price|number_format(2) }}€</p>
