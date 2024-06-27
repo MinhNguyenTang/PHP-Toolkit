@@ -22,14 +22,13 @@
     <div class="d-flex justify-content-around flex-wrap mt-4">
         {% for recipe in recipes %}
         <div class="card border-0 mb-3 mr-5 shadow-lg p-3 mb-5 bg-white rounded-0" style="max-width: 20rem;">
-            <div class="card-header">
+            <div class="card-header border-0">
                 <h5 class="float-start">{{ recipe.nameRecipe }}</h5>
                 <div class="card-subtitle">
                     <p class="float-end">{{ recipe.user.fullName }}</p>
                 </div>
             </div>
                 <div class="card-body">
-                    <h5>Recipe details</h5>
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
                 </div>
                 <div class="card-footer border-0">
@@ -45,15 +44,14 @@
            <div class="modal fade" id="staticBackdrop{{ recipe.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ recipe.id }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header border-0">
                   <h1 class="modal-title fs-5" id="staticBackdropLabel{{ recipe.id }}">{{ recipe.nameRecipe }}</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5>Recipe details</h5>
-                    <p>Description: {{ (recipe.description is null) ? '--' : recipe.description }}</p>
+                    <p>{{ (recipe.description is null) ? '--' : recipe.description }}</p>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer border-0">
                   <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
                 </div>
               </div>
