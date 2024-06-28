@@ -2,12 +2,8 @@
 
 function csprng()
 {
-    try {
-        $bytes = random_bytes(32);
-        echo bin2hex($bytes);
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
+    $bytes = random_bytes(32);
+    echo bin2hex($bytes);
 }
 
 function tba()

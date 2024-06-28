@@ -9,21 +9,32 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
+    private $token;
+
+    public function __construct(CsrfTokenManagerInterface $token)
+    {
+        $this->token = $token;
+    }
+
     #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        $csrfToken = $this->token->getToken('authenticate')->getValue();
+
         return $this->render('pages/security/login.html.twig', [
             'error' => $error,
-            'last_username' => $lastUsername
+            'last_username' => $lastUsername,
+            'csrf_token' => $csrfToken
         ]);
     }
 

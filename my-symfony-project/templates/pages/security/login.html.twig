@@ -33,7 +33,7 @@
 
             <label for="password" class="form-label mt-4">Password</label>
             <input type="password" class="form-control" id="password" name="_password"
-            placeholder="Password" min="5" max="255" required>
+            placeholder="Password" required>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/>
