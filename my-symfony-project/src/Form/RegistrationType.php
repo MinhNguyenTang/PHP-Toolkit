@@ -22,6 +22,7 @@ class RegistrationType extends AbstractType
             ->add('fullName', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'placeholder' => 'Jackson White',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -36,6 +37,7 @@ class RegistrationType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'placeholder' => 'Jack_$p1R0W',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -47,13 +49,13 @@ class RegistrationType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'example@example.com'
                 ],
                 'required' => true,
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4',
-                    'placeholder' => 'example@example.com'
                 ],
                 'constraints' => [
                     New Assert\Email(),
@@ -65,8 +67,11 @@ class RegistrationType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'placeholder' => 'Password',
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&;*_=+\-]).{10, 65}$/'
                     ],
+                    'required' => true,
                     'label' => 'Password',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
@@ -74,8 +79,10 @@ class RegistrationType extends AbstractType
                 ],
                 'second_options' => [
                     'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'placeholder' => 'Confirm password'
                     ],
+                    'required' => true,
                     'label' => 'Confirm Password',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
