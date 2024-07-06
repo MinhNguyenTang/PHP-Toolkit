@@ -13,6 +13,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
             {{ importmap() }}
             {{ encore_entry_script_tags('app') }}
             <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

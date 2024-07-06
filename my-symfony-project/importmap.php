@@ -13,17 +13,14 @@
  */
 return [
     'app' => [
-        'path' => 'app.js',
+        'path' => './assets/app.js',
         'entrypoint' => true,
     ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
     '@symfony/stimulus-bundle' => [
-        'path' => '@symfony/stimulus-bundle/loader.js',
-    ],
-    '@hotwired/turbo' => [
-        'version' => '7.3.0',
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
     'react' => [
         'version' => '18.3.1',
@@ -36,5 +33,8 @@ return [
     ],
     '@symfony/ux-react' => [
         'path' => './vendor/symfony/ux-react/assets/dist/loader.js',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '7.3.0',
     ],
 ];
