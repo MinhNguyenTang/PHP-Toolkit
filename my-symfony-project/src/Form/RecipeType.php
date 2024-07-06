@@ -130,7 +130,9 @@ class RecipeType extends AbstractType
                 'value' => false,
                 'label' => 'Is Favorite?',
                 'constraints' => [
-                    New Assert\NotNull()
+                    New Assert\NotNull([
+                        'message' => 'Please indicate if this is a favorite'
+                    ])
                 ]
             ])
             ->add('ingredients', EntityType::class, [

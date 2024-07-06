@@ -20,7 +20,8 @@ class UserPasswordType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&;*_=+\-]).{10, 65}$/'
                     ],
                     'label' => 'New password',
                     'label_attr' => [

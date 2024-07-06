@@ -68,7 +68,7 @@
               <div class="modal fade" id="staticBackdrop{{ ingredient.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ ingredient.id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header border-0">
                       <h1 class="modal-title fs-5" id="staticBackdropLabel{{ ingredient.id }}">
                         <i class="fa-sharp fa-solid fa-circle-exclamation"></i> Delete ingredient</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -76,7 +76,7 @@
                     <div class="modal-body">
                       Do you really want to delete the ingredient {{ ingredient.id }}?
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer border-0">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                       <a href="{{ path('app_ingredient_delete', { id : ingredient.id }) }}" class="btn btn-danger">Delete</a>
                     </div>

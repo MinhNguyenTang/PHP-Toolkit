@@ -6,11 +6,12 @@
 
     <div class="container">
         <h1 class="mt-4"> {{ recipe.nameRecipe }} </h1>
+        <p class="text mt-4">Recipe rating: {{ recipe.average|number_format(2) }}/5 </p>
         <div class="row mt-4">
             <p>Duration: {{ (hours == 0) ? '-.-' : hours }} hours and {{ (minutes == 0) ? '-.-' : minutes }} minutes</p>
             <p>For: {{ (recipe.numberPeople is null) ? 'Unknown' : recipe.numberPeople }}</p>
             <p>Difficulty: {{ (recipe.difficulty is null) ? 'Unknwon' : recipe.difficulty }}</p>
-            <p>Price: {{ (recipe.price is null) ? 'Unknown' : recipe.price|number_format(2) }}€</p>
+            <p>Price: {{ (recipe.price is null) ? '-.-' : recipe.price|number_format(2) }}€</p>
             <p> {{ recipe.description|raw }} </p>
         </div>
     </div>

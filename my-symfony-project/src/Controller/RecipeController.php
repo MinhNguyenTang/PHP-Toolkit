@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Mark;
 use App\Entity\Recipe;
+use App\Form\MarkType;
 use App\Form\RecipeType;
 use Psr\Log\LoggerInterface;
+use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,13 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecipeController extends AbstractController
 {
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
     /**
      * Controller that displays all recipes
      *
@@ -81,42 +77,64 @@ class RecipeController extends AbstractController
      * @return Response
      */
     #[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
-    public function showRecipe(Recipe $recipe): Response
+    public function showRecipe(
+        Recipe $recipe, 
+        Request $request,
+        MarkRepository $repository,
+        EntityManagerInterface $manager
+    ): Response
     {
+        $mark = new Mark();
+        $form = $this->createForm(MarkType::class, $mark);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $mark->setUser($this->getUser())
+                ->setRecipe($recipe);
+            
+            $existingMark = $repository->findByOne([
+                'user' => $this->getUser(),
+                'recipe' => $recipe
+            ]);
+
+            if(!$existingMark) {
+                $manager->persist($mark);
+                $manager->flush();
+            }
+        }
+
         $minutes = $recipe->getTime();
         $hours = intdiv($minutes, 60);
         $exptTime = $minutes % 60;
-
-        $this->logger->info('Recipe duration converted', [
-            'hours' => $hours,
-            'minutes' => $exptTime,
-        ]);
 
         return $this->render('pages/recipe/show.html.twig', [
             'recipe' => $recipe,
             'hours' => $hours,
             'minutes' => $exptTime,
+            'form' => $form->createView()
         ]);
-    }
+    } 
 
-    /**
+        /**
      * Controller that creates all recipes
      *
-     * @param EntityManagerInterface $manager
      * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_USER')]
-    #[Route('/recipe/recipe_new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
+    #[Route('/recipe/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
     public function new(
-        EntityManagerInterface $manager, 
-        Request $request
+        Request $request,
+        EntityManagerInterface $manager 
     ): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid())
         {
             $recipe = $form->getData();

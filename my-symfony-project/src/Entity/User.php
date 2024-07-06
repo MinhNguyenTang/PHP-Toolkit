@@ -24,8 +24,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank()]
-    #[Assert\Length(min: 2, max: 50)]
+    #[Assert\NotBlank(
+        message: "The field should not be blank."
+    )]
+    #[Assert\Length(
+        min: 2, 
+        minMessage: "The name must be at least {{ limit }} characters long.",
+        max: 50,
+        maxMessage: "The name should not exceed {{ limit }} characters long.",
+        )]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z]).{2,50}$/",
+        message: "The name must contain one uppercase letter."
+    )]
     private ?string $fullName = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -51,7 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "The password field should not be blank."
+    )]
     #[Assert\Regex(
         pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&;*_=+\-]).{10,65}$/",
         message: "The password must contain at least one lowercase letter, one uppercase letter, one number, one special character and be at least 10 characters long."

@@ -23,6 +23,7 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Jackson White',
+                    'pattern' => '/^(?=.*[a-z])(?=.*[A-Z]).{2, 50}$/',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -37,7 +38,7 @@ class RegistrationType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Jack_$p1R0W',
+                    'placeholder' => 'Jack_Sp@Row',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -50,17 +51,14 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'example@example.com'
+                    'placeholder' => 'example@example.com',
+                    'minlength' => '2',
+                    'maxlength' => '50'
                 ],
                 'required' => true,
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4',
-                ],
-                'constraints' => [
-                    New Assert\Email(),
-                    New Assert\NotBlank(),
-                    New Assert\Length(min: 2, max: 180)
                 ]
             ])
             ->add('password', RepeatedType::class, [
@@ -88,7 +86,7 @@ class RegistrationType extends AbstractType
                         'class' => 'form-label mt-4'
                     ],
                 ],
-                'invalid_message' => 'The passwords field must match.',
+                'invalid_message' => 'The password fields must match.',
                 'required' => true,
                 'constraints' => [
                     New Assert\NotBlank()
