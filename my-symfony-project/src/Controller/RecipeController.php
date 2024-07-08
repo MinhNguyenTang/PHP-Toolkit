@@ -113,7 +113,7 @@ class RecipeController extends AbstractController
                 'success',
                 'Recipe rating sent.'
             );
-            
+
             return $this->redirectToRoute('app_show_recipe', ['id' => $recipe->getId()]);
         }
 

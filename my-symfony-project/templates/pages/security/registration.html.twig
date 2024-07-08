@@ -54,7 +54,7 @@
             <hr class="divider">
             <div class="row">
                 <div class="col-sm-6">
-                    <p class="float-start">Already have an account? <a href="{{ path('app_login') }}">Sign in</a></p>
+                    <p class="float-start">Already have an account? <a href="{{ path('app_login') }}" class="no-underline">Sign in</a></p>
                 </div>
             </div>
         {{ form_end(form) }}  
@@ -64,15 +64,12 @@
         document.addEventListener('DOMContentLoaded', function() {
         const showPasswordToggle = document.querySelector('#toggle');
         const passwordField = document.querySelector('#{{ form.password.first.vars.id }}');
-        const confirmField = document.querySelector('#{{ form.password.second.vars.id }}');
 
         showPasswordToggle.addEventListener('change', function() {
             if (this.checked) {
                 passwordField.type = 'text';
-                confirmField.type = 'text';
             } else {
                 passwordField.type = 'password';
-                confirmField.type = 'password';
             }
         });
     });
