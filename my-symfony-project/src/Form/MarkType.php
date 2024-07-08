@@ -25,13 +25,17 @@ class MarkType extends AbstractType
                     'Okay' => 3,
                     'Bad' => 2,
                     'Terrible' => 1
+                ],
+                'label' => 'How would you rate this recipe?',
+                'label_attr' => [
+                    'form-select mt-4',   
                 ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-primary mt-4',
                 ],
-                'label' => 'Submit'
+                'label' => 'Submit',
             ])
         ;
     }
@@ -40,6 +44,9 @@ class MarkType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Mark::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id' => 'unique_identifier'
         ]);
     }
 }

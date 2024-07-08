@@ -76,7 +76,7 @@ class RecipeController extends AbstractController
      * @param Recipe $recipe
      * @return Response
      */
-    #[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET'])]
+    #[Route('/recipe/{id}', name: 'app_show_recipe', methods: ['GET', 'POST'])]
     public function showRecipe(
         Recipe $recipe, 
         Request $request,
@@ -94,15 +94,27 @@ class RecipeController extends AbstractController
             $mark->setUser($this->getUser())
                 ->setRecipe($recipe);
             
-            $existingMark = $repository->findByOne([
+            $existingMark = $repository->findOneBy([
                 'user' => $this->getUser(),
                 'recipe' => $recipe
             ]);
 
             if(!$existingMark) {
                 $manager->persist($mark);
-                $manager->flush();
+            } else {
+                $existingMark->setMark(
+                    $form->getData()->getMark()
+                );
             }
+            
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Recipe rating sent.'
+            );
+            
+            return $this->redirectToRoute('app_show_recipe', ['id' => $recipe->getId()]);
         }
 
         $minutes = $recipe->getTime();

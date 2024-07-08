@@ -6,6 +6,12 @@
 
     <div class="container">
         <h1 class="mt-4"> {{ recipe.nameRecipe }} </h1>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success mt-4">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          {{ message }}
+        </div>
+      {% endfor %}
         <p class="text mt-4">Recipe rating: {{ recipe.average|number_format(2) }}/5 </p>
         <div class="row mt-4">
             <p>Duration: {{ (hours == 0) ? '-.-' : hours }} hours and {{ (minutes == 0) ? '-.-' : minutes }} minutes</p>
@@ -14,6 +20,24 @@
             <p>Price: {{ (recipe.price is null) ? '-.-' : recipe.price|number_format(2) }}€</p>
             <p> {{ recipe.description|raw }} </p>
         </div>
+    </div>
+
+    <div class="container">
+        {{ form_start(form, { 'attr': { 'class': 'shadow-lg p-3 mb-5 bg-white rounded-0'} }) }}
+            <h5 class="title">Rate a recipe</h5>
+            <div class="row">
+                <div class="col">
+                    {{ form_label(form.mark) }}
+                    {{ form_widget(form.mark) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{  form_row(form.submit) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
     </div>
     
 
