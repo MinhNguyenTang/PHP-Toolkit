@@ -26,3 +26,13 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
+
+.content-title {
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.custom-image {
+    max-width: 100%;
+    height: auto;
+}

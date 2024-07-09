@@ -14,12 +14,66 @@
     </div>
 
 <div class="container">
-    <h3 class="d-flex justify-content-start flex-wrap mt-4 align-items">Shared recipes</h3>
+    <div class="d-flex justify-content-around flex-wrap mt-4">
+        <div class="col-md-5 mt-5">
+            <img src="https://images.pexels.com/photos/3771106/pexels-photo-3771106.jpeg" alt="A passion" class="custom-image">
+        </div>
+
+        <div class="col-md-6 mt-5">
+            <h5>Esther</h5>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Bibendum at varius vel pharetra vel turpis nunc. Venenatis cras sed felis eget velit aliquet. 
+                Lectus arcu bibendum at varius vel pharetra vel turpis. Neque sodales ut etiam sit amet. 
+                Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt. 
+                Ipsum faucibus vitae aliquet nec ullamcorper.
+            </p>
+            <p>
+                Pretium quam vulputate dignissim suspendisse in est. 
+                Porttitor rhoncus dolor purus non. Ultricies mi eget mauris pharetra et ultrices. 
+                Risus ultricies tristique nulla aliquet enim tortor. 
+                Cursus mattis molestie a iaculis at erat pellentesque adipiscing.
+                Proin sed libero enim sed faucibus turpis.
+                Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100" style="background-image: url('https://images.pexels.com/photos/3843225/pexels-photo-3843225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+      background-size: cover;">
+        <div class="col-md-12 col-xl-5">
+  
+          <figure class="bg-body-tertiary p-4"
+            style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+            <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
+            <blockquote class="blockquote pb-2">
+              <p>
+                Je vais, dans mon ardeur poétique et divine, mettre au rang des beaux arts celui de la cuisine.
+              </p>
+              <p>
+                In my poetic and divine ardor, I'm going to include cooking among the fine arts.
+              </p>
+            </blockquote>
+            <figcaption class="blockquote-footer mb-0">
+                Joseph Berchoux
+            </figcaption>
+          </figure>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="container">
+    <h3 class="d-flex content-title justify-content-center flex-wrap align-items">Shared recipes from the community</h3>
 
     {% if recipes is null %}
         <p>There is no published recipe yet.</p>
     {% else %}            
-    <div class="d-flex justify-content-around flex-wrap mt-4">
+    <div class="d-flex justify-content-around flex-wrap">
         {% for recipe in recipes %}
         <div class="card border-0 mb-3 mr-5 shadow-lg p-3 mb-5 bg-white rounded-0" style="max-width: 20rem;">
             <div class="card-header border-0">
