@@ -37,8 +37,25 @@ class IngredientController extends AbstractController
             10 /*limit per page*/
         );
 
+        $forms = [];
+        foreach ($ingredients as $ingredient) {
+            $form = $this->createForm(IngredientType::class, $ingredient, [
+                'action' => $this->generateUrl('app_ingredient_edit', ['id' => $ingredient->getId()]),
+                'method' => 'POST'
+            ]);
+            $forms[$ingredient->getId()] = $form->createView();
+        }
+
+        $ingredient = new Ingredient();
+        $addIngredient = $this->createForm(IngredientType::class, $ingredient, [
+            'action' => $this->generateUrl('app_ingredient_new'),
+            'method' => 'POST'
+        ])->createView();
+
         return $this->render('pages/ingredient/ingredient.html.twig', [
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'forms' => $forms,
+            'addIngredient' => $addIngredient,
         ]);
     }
 

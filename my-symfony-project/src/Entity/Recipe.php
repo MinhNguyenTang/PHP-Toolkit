@@ -7,10 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\Collection;
 
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[Vich\Uploadable]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('nameRecipe')]
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -57,6 +60,12 @@ class Recipe
     #[ORM\Column(type: 'boolean')]
     #[Assert\NotNull()]
     private ?bool $isPublic = null;
+
+    #[Vich\UploadableField(mapping: 'recipes_images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
     
     #[ORM\Column]
     #[Assert\NotNull()]
@@ -326,6 +335,40 @@ class Recipe
     public function setAverage(?float $average): self
     {
         $this->average = $average;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageName
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     */
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }

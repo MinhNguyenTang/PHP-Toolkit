@@ -38,9 +38,39 @@
       <div class="d-flex justify-content-between">
         <p>There are {{ ingredients.getTotalItemCount }} ingredients.</p>
 
-        <a href="{{ path('app_ingredient_new') }}" class="btn btn-primary">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addIngredientModal">
           <i class="fas fa-plus"></i> Add an ingredient
         </a>
+      </div>
+
+      <div class="modal fade" id="addIngredientModal" tabindex="-1" aria-labelledby="addIngredientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="addIngredientModalLabel">Add New Ingredient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(addIngredient) }}
+                        <div class="mb-3">
+                            {{ form_label(addIngredient.name) }}
+                            {{ form_widget(addIngredient.name) }}
+                            {{ form_errors(addIngredient.name) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(addIngredient.price) }}
+                            {{ form_widget(addIngredient.price) }}
+                            {{ form_errors(addIngredient.price) }}
+                        </div>
+
+                        <div class="modal-footer border-0">
+                            {{ form_row(addIngredient.submit) }}
+                        </div>
+                    {{ form_end(addIngredient) }}
+                </div>
+            </div>
+        </div>
       </div>
     </div>
 
@@ -61,9 +91,39 @@
                 <td>{{ ingredient.name }}</td>
                 <td>{{ ingredient.price|number_format(2) }}€</td>
                 <td>{{ ingredient.createdAt|date("d/m/Y") }}</td>
-                <td><a href="{{ path('app_ingredient_edit', { id : ingredient.id }) }}" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
+                <td><a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal{{ ingredient.id }}"><i class="fas fa-edit"></i> Edit</a>
                 <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ ingredient.id }}"><i class="fas fa-trash-alt"></i> Delete</a></td>
               </tr>
+
+              <div class="modal fade" id="editModal{{ ingredient.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ ingredient.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                          <h5 class="modal-title" id="editModalLabel{{ ingredient.id }}">Edit Ingredient - {{ ingredient.name }} </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          {{ form_start(forms[ingredient.id]) }}
+                              <div class="mb-3">
+                                  {{ form_label(forms[ingredient.id].name) }}
+                                  {{ form_widget(forms[ingredient.id].name) }}
+                                  {{ form_errors(forms[ingredient.id].name) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[ingredient.id].price) }}
+                                  {{ form_widget(forms[ingredient.id].price) }}
+                                  {{ form_errors(forms[ingredient.id].price) }}
+                              </div>
+
+                              <div class="modal-footer border-0">
+                                {{ form_row(forms[ingredient.id].submit) }}
+                              </div>
+                          {{ form_end(forms[ingredient.id]) }}
+                      </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="modal fade" id="staticBackdrop{{ ingredient.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ ingredient.id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">

@@ -39,9 +39,80 @@
       <div class="d-flex justify-content-between">
         <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
         
-        <a href="{{ path('app_recipe_new') }}" class="btn btn-primary">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
           <i class="fas fa-plus"></i> Add a recipe
         </a>
+      </div>
+
+      <div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+              <div class="modal-header border-0">
+                  <h5 class="modal-title" id="addRecipeModal">Add New Recipe</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  {{ form_start(addRecipe) }}
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.nameRecipe) }}
+                          {{ form_widget(addRecipe.nameRecipe) }}
+                          {{ form_errors(addRecipe.nameRecipe) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.time) }}
+                          {{ form_widget(addRecipe.time) }}
+                          {{ form_errors(addRecipe.time) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.numberPeople) }}
+                          {{ form_widget(addRecipe.numberPeople) }}
+                          {{ form_errors(addRecipe.numberPeople) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.price) }}
+                          {{ form_widget(addRecipe.price) }}
+                          {{ form_errors(addRecipe.price) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.difficulty) }}
+                          {{ form_widget(addRecipe.difficulty) }}
+                          {{ form_errors(addRecipe.difficulty) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.isFavorite) }}
+                          {{ form_widget(addRecipe.isFavorite) }}
+                          {{ form_errors(addRecipe.isFavorite) }}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.imageFile) }}
+                        {{ form_widget(addRecipe.imageFile) }}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.ingredients) }}
+                        {{ form_widget(addRecipe.ingredients) }}
+                        {{ form_errors(addRecipe.ingredients)}}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.description) }}
+                        {{ form_widget(addRecipe.description) }}
+                        {{ form_errors(addRecipe.description)}}
+                      </div>
+
+                      <div class="modal-footer border-0">
+                        {{ form_row(addRecipe.submit) }}
+                      </div>
+                  {{ form_end(addRecipe) }}
+              </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -66,9 +137,80 @@
                 <td>{{ (recipe.difficulty is null) ? 'Unknown' : recipe.difficulty }}</td>
                 <td>{{ (recipe.isFavorite == 0) ? 'No' : 'Yes' }}</td>
                 <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-                <td><a href="{{ path('app_recipe_edit', { id: recipe.id }) }}" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
+                <td><a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal{{ recipe.id }}"><i class="fas fa-edit"></i> Edit</a>
                 <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}"><i class="fas fa-trash-alt"></i> Delete</a></td>
               </tr>
+
+              <div class="modal fade" id="editModal{{ recipe.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ recipe.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                          <h5 class="modal-title" id="editModalLabel{{ recipe.id }}">Edit Recipe</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          {{ form_start(forms[recipe.id]) }}
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].nameRecipe) }}
+                                  {{ form_widget(forms[recipe.id].nameRecipe) }}
+                                  {{ form_errors(forms[recipe.id].nameRecipe) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].time) }}
+                                  {{ form_widget(forms[recipe.id].time) }}
+                                  {{ form_errors(forms[recipe.id].time) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].numberPeople) }}
+                                  {{ form_widget(forms[recipe.id].numberPeople) }}
+                                  {{ form_errors(forms[recipe.id].numberPeople) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].price) }}
+                                  {{ form_widget(forms[recipe.id].price) }}
+                                  {{ form_errors(forms[recipe.id].price) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].difficulty) }}
+                                  {{ form_widget(forms[recipe.id].difficulty) }}
+                                  {{ form_errors(forms[recipe.id].difficulty) }}
+                              </div>
+
+                              <div class="mb-3">
+                                  {{ form_label(forms[recipe.id].isFavorite) }}
+                                  {{ form_widget(forms[recipe.id].isFavorite) }}
+                                  {{ form_errors(forms[recipe.id].isFavorite) }}
+                              </div>
+
+                              <div class="mb-3">
+                                {{ form_label(forms[recipe.id].imageFile) }}
+                                {{ form_widget(forms[recipe.id].imageFile) }}
+                              </div>
+
+                              <div class="mb-3">
+                                {{ form_label(forms[recipe.id].ingredients) }}
+                                {{ form_widget(forms[recipe.id].ingredients) }}
+                                {{ form_errors(forms[recipe.id].ingredients)}}
+                              </div>
+
+                              <div class="mb-3">
+                                {{ form_label(forms[recipe.id].description) }}
+                                {{ form_widget(forms[recipe.id].description) }}
+                                {{ form_errors(forms[recipe.id].description)}}
+                              </div>
+
+                              <div class="modal-footer border-0">
+                                {{ form_row(forms[recipe.id].submit) }}
+                              </div>
+                          {{ form_end(forms[recipe.id]) }}
+                      </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="modal fade" id="staticBackdrop{{ recipe.id }}" data-bs-backdrop="#" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ recipe.id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">

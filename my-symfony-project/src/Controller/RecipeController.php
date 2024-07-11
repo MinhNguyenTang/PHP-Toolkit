@@ -39,8 +39,64 @@ class RecipeController extends AbstractController
             10 /*limit per page*/
         );
 
+        $forms = [];
+        foreach ($recipes as $recipe) {
+            $form = $this->createForm(RecipeType::class, $recipe, [
+                'action' => $this->generateUrl('app_recipe_edit', ['id' => $recipe->getId()]),
+                'method' => 'POST'
+            ]);
+            $forms[$recipe->getId()] = $form->createView();
+        }
+
+        $recipe = new Recipe();
+        $addRecipe = $this->createForm(RecipeType::class, $recipe, [
+            'action' => $this->generateUrl('app_recipe_new'),
+            'method' => 'POST'
+        ])->createView();
+
         return $this->render('pages/recipe/recipe.html.twig', [
-            'recipes' => $recipes
+            'recipes' => $recipes,
+            'forms' => $forms,
+            'addRecipe' => $addRecipe,
+        ]);
+    }
+
+    /**
+     * Controller that creates all recipes
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/recipe/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
+    public function new(
+        Request $request,
+        EntityManagerInterface $manager 
+    ): Response
+    {
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $recipe = $form->getData();
+            $recipe->setUser($this->getUser());
+
+            $manager->persist($recipe);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your recipe has been successfully added!'
+            );
+
+            return $this->redirectToRoute('app_recipe');
+        }
+
+        return $this->render('pages/recipe/new.html.twig', [
+            'form' => $form->CreateView()
         ]);
     }
 
@@ -128,45 +184,6 @@ class RecipeController extends AbstractController
             'form' => $form->createView()
         ]);
     } 
-
-        /**
-     * Controller that creates all recipes
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     */
-    #[Route('/recipe/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
-    public function new(
-        Request $request,
-        EntityManagerInterface $manager 
-    ): Response
-    {
-        $recipe = new Recipe();
-        $form = $this->createForm(RecipeType::class, $recipe);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $recipe = $form->getData();
-            $recipe->setUser($this->getUser());
-
-            $manager->persist($recipe);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'Your recipe has been successfully added!'
-            );
-
-            return $this->redirectToRoute('app_recipe');
-        }
-
-        return $this->render('pages/recipe/new.html.twig', [
-            'form' => $form->CreateView()
-        ]);
-    }
 
     /**
      * Controller that edits a recipe

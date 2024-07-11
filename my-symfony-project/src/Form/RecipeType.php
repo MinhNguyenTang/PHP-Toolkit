@@ -8,18 +8,19 @@ use Doctrine\ORM\QueryBuilder;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RecipeType extends AbstractType
 {
@@ -79,35 +80,6 @@ class RecipeType extends AbstractType
                     New Assert\LessThan(51)
                 ]
             ])
-            ->add('difficulty', RangeType::class, [
-                'attr' => [
-                    'class' => 'form-range',
-                    'min' => 1,
-                    'max' => 5
-                ],
-                'required' => false,
-                'label' => 'Recipe difficulty',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    New Assert\Positive(),
-                    New Assert\LessThan(6)
-                ]
-            ])
-            ->add('description', TextareaType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'rows' => '4'
-                ],
-                'label' => 'Recipe description',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    New Assert\NotBlank()
-                ]
-            ])
             ->add('price', MoneyType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -120,6 +92,25 @@ class RecipeType extends AbstractType
                 'constraints' => [
                     New Assert\Positive(),
                     New Assert\LessThan(1001)
+                ]
+            ])
+            ->add('difficulty', ChoiceType::class, [
+                'choices' => [
+                    'Select a difficulty to this recipe' => null,
+                    'Easier than easy' => 1,
+                    'Easy' => 2,
+                    'Medium' => 3,
+                    'Difficult' => 4,
+                    'Harder than hard' => 5
+                ],
+                'required' => false,
+                'label' => 'Recipe difficulty',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    New Assert\Positive(),
+                    New Assert\LessThan(6)
                 ]
             ])
             ->add('isFavorite', CheckboxType::class, [
@@ -135,6 +126,13 @@ class RecipeType extends AbstractType
                     ])
                 ]
             ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Choose an image of recipe',
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+            ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'query_builder' => function (IngredientRepository $r): QueryBuilder {
@@ -143,9 +141,25 @@ class RecipeType extends AbstractType
                         ->orderBy('i.name', 'ASC')
                         ->setParameter('user', $this->token->getToken()->getUser());
                 },
+                'attr' => [
+                    'class' => ''
+                ],
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true
+            ])
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'rows' => '4'
+                ],
+                'label' => 'Recipe description',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    New Assert\NotBlank()
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
