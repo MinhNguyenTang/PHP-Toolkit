@@ -54,7 +54,6 @@ class Recipe
     private ?float $price = null;
 
     #[ORM\Column(name: 'is_favorite', type: 'boolean')]
-    #[Assert\NotNull()]
     private bool $isFavorite = false;
        
     #[ORM\Column(type: 'boolean')]

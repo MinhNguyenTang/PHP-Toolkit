@@ -68,7 +68,7 @@
   </section>
 
 <div class="container">
-    <h3 class="d-flex content-title justify-content-center flex-wrap align-items">Shared recipes by the community</h3>
+    <h3 class="d-flex content-title justify-content-center flex-wrap align-items">Recipes shared by the community</h3>
 
     {% if recipes is null %}
         <p>There is no published recipe yet.</p>
@@ -86,7 +86,7 @@
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
                 </div>
                 <div class="card-footer border-0">
-                    <p class="card-date"> <i class="fa-solid fa-calendar"></i> Published on {{ recipe.createdAt|date("d/m/Y") }}</p>
+                    <p class="card-date"> <small><i class="fa-solid fa-calendar"></i> Published on {{ recipe.createdAt|date("d/m/Y") }}</small></p>
                     <a href="{{ path('app_show_recipe', {'id': recipe.id }) }}" class="btn btn-primary">
                         View recipe
                     </a>

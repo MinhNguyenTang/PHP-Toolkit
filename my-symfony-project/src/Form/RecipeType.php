@@ -96,7 +96,7 @@ class RecipeType extends AbstractType
             ])
             ->add('difficulty', ChoiceType::class, [
                 'choices' => [
-                    'Select a difficulty to this recipe' => null,
+                    'Select a difficulty' => null,
                     'Easier than easy' => 1,
                     'Easy' => 2,
                     'Medium' => 3,
@@ -141,9 +141,6 @@ class RecipeType extends AbstractType
                         ->orderBy('i.name', 'ASC')
                         ->setParameter('user', $this->token->getToken()->getUser());
                 },
-                'attr' => [
-                    'class' => ''
-                ],
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true

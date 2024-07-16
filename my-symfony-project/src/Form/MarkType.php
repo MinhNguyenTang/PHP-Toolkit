@@ -29,7 +29,7 @@ class MarkType extends AbstractType
                 'label' => 'How would you rate this recipe?',
                 'label_attr' => [
                     'form-select mt-4',   
-                ]
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

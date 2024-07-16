@@ -20,9 +20,111 @@
 {% else %}
 
   <div class="container mt-4">
-    {% if recipes is null %}
+    {% if recipes is null or recipes|length == 0 %}
 
-      <p>There is no recipe</p>
+    <h2>My recipes - Symrecipe</h2>
+
+    <div class="container mt-4">
+      <div class="d-flex justify-content-between">
+        <p>There are {{ recipes.getTotalItemCount }} recipes.</p>
+        
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
+          <i class="fas fa-plus"></i> Add a recipe
+        </a>
+      </div>
+
+      <div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+              <div class="modal-header border-0">
+                  <h5 class="modal-title" id="addRecipeModal">Add New Recipe</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  {{ form_start(addRecipe) }}
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.nameRecipe) }}
+                          {{ form_widget(addRecipe.nameRecipe) }}
+                          {{ form_errors(addRecipe.nameRecipe) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.time) }}
+                          {{ form_widget(addRecipe.time) }}
+                          {{ form_errors(addRecipe.time) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.numberPeople) }}
+                          {{ form_widget(addRecipe.numberPeople) }}
+                          {{ form_errors(addRecipe.numberPeople) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.price) }}
+                          {{ form_widget(addRecipe.price) }}
+                          {{ form_errors(addRecipe.price) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.difficulty) }}
+                          {{ form_widget(addRecipe.difficulty) }}
+                          {{ form_errors(addRecipe.difficulty) }}
+                      </div>
+
+                      <div class="mb-3">
+                          {{ form_label(addRecipe.isFavorite) }}
+                          {{ form_widget(addRecipe.isFavorite) }}
+                          {{ form_errors(addRecipe.isFavorite) }}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.imageFile) }}
+                        {{ form_widget(addRecipe.imageFile) }}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.ingredients) }}
+                        {{ form_widget(addRecipe.ingredients) }}
+                        {{ form_errors(addRecipe.ingredients)}}
+                      </div>
+
+                      <div class="mb-3">
+                        {{ form_label(addRecipe.description) }}
+                        {{ form_widget(addRecipe.description) }}
+                        {{ form_errors(addRecipe.description)}}
+                      </div>
+
+                      <div class="modal-footer border-0">
+                        {{ form_row(addRecipe.submit) }}
+                      </div>
+                  {{ form_end(addRecipe) }}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <table class="table table-hover mt-4">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Recipe Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Is Favorite</th>
+            <th scope="col">Creation Date</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="7" class="text-center">No records found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     {% else %}  
 

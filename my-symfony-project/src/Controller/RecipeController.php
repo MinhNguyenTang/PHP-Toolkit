@@ -62,7 +62,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * Controller that creates all recipes
+     * Controller that creates new recipes
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -183,7 +183,7 @@ class RecipeController extends AbstractController
             'minutes' => $exptTime,
             'form' => $form->createView()
         ]);
-    } 
+    }
 
     /**
      * Controller that edits a recipe
@@ -233,6 +233,7 @@ class RecipeController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
     #[Route('/recipe/deletion/{id}', name: 'app_recipe_delete', methods: ['GET', 'POST'])]
     public function delete(
         EntityManagerInterface $manager,

@@ -3,8 +3,7 @@
 {% block title %}Sign up{% endblock %}
 
 {% block body %}
-
-    <div class="container d-flex justify-content-center align-items-center min-vh-100" style="padding-top: 70px;">
+    <div class="container d-flex justify-content-center align-items-center" style="padding-top: 70px;">
         
         {{ form_start(form, { 'attr': { 'id': 'registrationForm', 'class': 'col-lg-6 mx-auto shadow-lg p-3 mb-5 bg-white rounded-0' } }) }}
             <h3 class="text-center mt-4">Create Account</h3>
@@ -51,7 +50,16 @@
                 </div>
             </div>
 
-            <hr class="divider">
+            <div class="row">
+                <p class="text mt-2">
+                    <small>
+                        By registering, I accept Symrecipe's <a class="no-underline" href="#">Terms of Use</a> 
+                        and confirm that I have read <a class="no-underline" href="#">Privacy Policy</a>.
+                    </small>
+                </p>
+            </div>
+
+            <hr class="divider mt-2">
             <div class="row">
                 <div class="col-sm-6">
                     <p class="float-start">Already have an account? <a href="{{ path('app_login') }}" class="no-underline">Sign in</a></p>
@@ -61,18 +69,19 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const showPasswordToggle = document.querySelector('#toggle');
-        const passwordField = document.querySelector('#{{ form.password.first.vars.id }}');
+        document.addEventListener('DOMContentLoaded', function() 
+        {
+            const showPasswordToggle = document.querySelector('#toggle');
+            const passwordField = document.querySelector('#{{ form.password.first.vars.id }}');
 
-        showPasswordToggle.addEventListener('change', function() {
-            if (this.checked) {
-                passwordField.type = 'text';
-            } else {
-                passwordField.type = 'password';
-            }
+            showPasswordToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    passwordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                }
+            });
         });
-    });
     </script>
 
 {% endblock %}

@@ -22,7 +22,7 @@ class RegistrationType extends AbstractType
             ->add('fullName', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Jackson White',
+                    'placeholder' => 'Enter your name',
                     'pattern' => '/^(?=.*[a-z])(?=.*[A-Z]).{2, 50}$/',
                     'minlength' => '2',
                     'maxlength' => '50'
@@ -38,7 +38,7 @@ class RegistrationType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Jack_Sp@Row',
+                    'placeholder' => 'e.g. Jack_Sp@Row',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -51,7 +51,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'example@example.com',
+                    'placeholder' => 'Enter your email address (e.g. example@example.com)',
                     'minlength' => '2',
                     'maxlength' => '50'
                 ],
@@ -94,7 +94,7 @@ class RegistrationType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-primary col-md-12 mt-4',
                 ],
                 'label' => 'Submit'
             ]);

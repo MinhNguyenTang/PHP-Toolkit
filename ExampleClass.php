@@ -3,6 +3,7 @@
 class User {
 
     private string $id;
+    private string $token;
 
     public function getId()
     {
@@ -20,8 +21,23 @@ class User {
         $this->id = uniqid() . sprintf('%04d', $counter);
         return $this->id;
     }
+
+    public function getToken($alpha_length)
+    {
+        $alpha = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $alpha_length = strlen($alpha);
+        $random_string = '';
+
+        for ($i = 0; $i < $alpha_length; $i++) {
+            $random_index = random_int(0, $alpha_length - 1);
+            $this->token = $random_string .= $alpha[$random_index];
+        }
+
+        return $this->token;
+    }
 }
 
 $em = new User();
 echo 'User TimeStamp ID: ' . $em->getTimeStampId() . PHP_EOL;
-echo 'User UuID: ' . $em->getId();
+echo 'User UuID: ' . $em->getId() . PHP_EOL;
+echo 'Token : ' . $em->getToken(10);
