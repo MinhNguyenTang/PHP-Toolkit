@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +25,7 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact', methods:['GET', 'POST'])]
     public function index(
         EntityManagerInterface $manager,
+        MailerInterface $mailer,
         Request $request
         ): Response
     {
@@ -43,6 +46,14 @@ class ContactController extends AbstractController
 
             $manager->persist($contact);
             $manager->flush();
+
+            $email = (new Email())
+                ->from($contact->getEmail())
+                ->to('admin@symrecipe.com')
+                ->subject($contact->getSubject())
+                ->html($contact->getMessage());
+
+            $mailer->send($email);
 
             $this->addFlash(
                 'success',
