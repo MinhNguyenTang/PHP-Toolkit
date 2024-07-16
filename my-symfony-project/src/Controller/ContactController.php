@@ -44,16 +44,16 @@ class ContactController extends AbstractController
         {
             $contact = $form->getData();
 
-            $manager->persist($contact);
-            $manager->flush();
-
             $email = (new Email())
                 ->from($contact->getEmail())
                 ->to('admin@symrecipe.com')
                 ->subject($contact->getSubject())
-                ->html($contact->getMessage());
+                ->html($message = $contact->getMessage());
 
             $mailer->send($email);
+
+            $manager->persist($contact);
+            $manager->flush();
 
             $this->addFlash(
                 'success',

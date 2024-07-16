@@ -58,6 +58,7 @@ class IngredientType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ingredient::class,
+            'sanitize_html' => true,
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'crsf_token_id' => 'unique_identifier'
