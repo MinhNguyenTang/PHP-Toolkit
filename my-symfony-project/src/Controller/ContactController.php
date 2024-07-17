@@ -48,7 +48,7 @@ class ContactController extends AbstractController
                 ->from($contact->getEmail())
                 ->to('admin@symrecipe.com')
                 ->subject($contact->getSubject())
-                ->html($message = $contact->getMessage());
+                ->html($contact->getMessage());
 
             $mailer->send($email);
 
