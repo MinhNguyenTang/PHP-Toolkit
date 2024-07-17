@@ -138,6 +138,19 @@ class Recipe
         return $this;
     }
 
+    public function getFormattedTime(): string
+    {
+        if ($this->time === null) {
+            return 'Unknown';
+        }
+
+        $hours = intdiv($this->time, 60);
+        $minutes = $this->time % 60;
+
+        return sprintf('%02dh%02dm', $hours, $minutes);
+
+    }
+
     public function getNumberPeople(): ?int
     {
         return $this->numberPeople;

@@ -16,6 +16,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserCrudController extends AbstractCrudController
 {
+    use Trait\ReadOnlyTrait;
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -35,7 +37,8 @@ class UserCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('fullName'),
-            TextField::new('pseudo'),
+            TextField::new('pseudo')
+                ->OnlyOnDetail(),
             EmailField::new('email'),
             Textfield::new('password')
                 ->setFormType(RepeatedType::class)
@@ -54,7 +57,8 @@ class UserCrudController extends AbstractCrudController
                     'required' => $pageName === 'new'
                 ])
                 ->onlyOnForms(),
-            ArrayField::new('roles'),
+            ArrayField::new('roles')
+                ->onlyOnDetail(),
             DateTimeField::new('createdAt')
                 ->hideOnForm(),
         ];

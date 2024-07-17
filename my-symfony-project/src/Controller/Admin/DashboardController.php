@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -19,7 +20,9 @@ class DashboardController extends AbstractDashboardController
     #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(UserCrudController::class));
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -46,19 +49,10 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-
-        yield MenuItem::section('Users');
-        yield MenuItem::linkToCrud('Create users', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW);
+        #yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-
-        yield MenuItem::section('Ingredients');
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-lemon', Ingredient::class);
-
-        yield MenuItem::section('Recipes');
         yield MenuItem::linkToCrud('Recipes', 'fas fa-book', Recipe::class);
-
-        yield MenuItem::section('Messages');
-        yield MenuItem::linkToCrud('Demands', 'fas fa-envelope', Contact::class);
+        yield MenuItem::linkToCrud('Messages', 'fas fa-envelope', Contact::class);
     }
 }

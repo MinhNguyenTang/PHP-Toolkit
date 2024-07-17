@@ -143,6 +143,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPseudo(): ?string
     {
+        if ($this->pseudo === null) {
+            return 'None';
+        }
+
         return $this->pseudo;
     }
 
@@ -319,5 +323,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString(): string 
+    {
+        return $this->fullName;
     }
 }

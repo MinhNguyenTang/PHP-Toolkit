@@ -6,6 +6,8 @@ use App\Entity\Recipe;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -36,11 +38,16 @@ class RecipeCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('nameRecipe'),
+            TextField::new('formattedTime', 'Duration')
+                ->onlyOnDetail(),
             TextEditorField::new('description'),
-            BooleanField::new('isPublic'),
+            BooleanField::new('isPublic')
+                ->onlyOnDetail(),
             NumberField::new('average', 'Rating'),
+            ArrayField::new('ingredients')
+                ->OnlyOnDetail(),
             DateTimeField::new('createdAt'),
-            AssociationField::new('user')
+            AssociationField::new('user', 'Added By')
                 ->setCrudController(UserCrudController::class),
         ];
     }
