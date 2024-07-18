@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class IngredientCrudController extends AbstractCrudController
@@ -35,7 +35,9 @@ class IngredientCrudController extends AbstractCrudController
             TextField::new('name'),
             MoneyField::new('price')->setCurrency('EUR'),
             DateTimeField::new('createdAt')
-            ->hideOnForm(),
+                ->hideOnForm(),
+            AssociationField::new('user', 'Added By')
+                ->setCrudController(UserCrudController::class),
         ];
     }
 }

@@ -43,6 +43,7 @@ security:
          - { path: ^/, roles: PUBLIC_ACCESS, requires_channel: https }
          - { path: ^/ingredient, roles: ROLE_USER }
          - { path: ^/recipe, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
          #- { path: ^/, roles: ROLE_USER }
 
 when@test:

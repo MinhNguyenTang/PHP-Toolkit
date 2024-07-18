@@ -6,8 +6,8 @@ use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -23,7 +23,7 @@ class ContactCrudController extends AbstractCrudController
     public function ConfigureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInPlural('Demands')
+            ->setEntityLabelInPlural('Messages')
             ->setPaginatorPageSize(9);
     }
 
@@ -34,14 +34,9 @@ class ContactCrudController extends AbstractCrudController
                 ->hideOnForm(),
             TextField::new('fullName')
                 ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('email')
+            EmailField::new('email')
                 ->setFormTypeOption('disabled', 'disabled'),
-            TextEditorField::new('Message')
-                ->setFormTypeOptions([
-                    'attr' => [
-                        'readonly' => 'readonly',
-                    ]
-                ]),
+            TextEditorField::new('Message'),
             DateTimeField::new('createdAt')
                 ->hideOnForm(),
         ];
