@@ -5,16 +5,18 @@
 {% block body %}
 
 {% if not app.user %}
-  <div class="container mt-5">
-    <h1 class="text-center">Unauthorized Access</h1>
-
-    <hr class="divider">
-
-    <div class="container mt-5">
-      <p style="text-align: center;">Sorry, your request could not be processed.</p>
-      <p style="text-align: center;"><a href="{{ path('app_home') }}">Return</a></p>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-lg-6 mx-auto">
+      <h1 class="text-center">Unauthorized Access</h1>
+  
+      <hr class="divider">
+  
+      <div class="container mt-5">
+        <p style="text-align: center;">Sorry, your request could not be processed.</p>
+        <p style="text-align: center;"><a href="{{ path('app_home') }}">Return</a></p>
+      </div>
     </div>
-  </div>
+    </div>
 
 {% else %}
 

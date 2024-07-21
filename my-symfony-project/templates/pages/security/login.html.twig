@@ -36,7 +36,7 @@
             placeholder="Enter password" required>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/>
+            <input type="hidden" name="_target_path" value="{{ path('2fa_login') }}"/>
 
             <button type="submit" class="btn btn-primary col-md-12 mt-4">Login</button>
 
